@@ -38,9 +38,6 @@ AMAZON_URLS = {
 }
 CHECKOUT_URL = "https://{domain}/gp/cart/desktop/go-to-checkout.html/ref=ox_sc_proceed?partialCheckoutCart=1&isToBeGiftWrappedBefore=0&proceedToRetailCheckout=Proceed+to+checkout&proceedToCheckout=1&cartInitiateId={cart_id}"
 
-AUTOBUY_CONFIG_PATH = "config/amazon_config.json"
-CREDENTIAL_FILE = "config/amazon_credentials.json"
-
 SIGN_IN_TEXT = [
     "Hello, Sign in",
     "Sign in",
@@ -165,6 +162,7 @@ class Amazon:
     def __init__(
         self,
         notification_handler,
+        config_file,
         headless=False,
         checkshipping=False,
         random_delay=False,
@@ -177,6 +175,7 @@ class Amazon:
         self.asin_list = []
         self.reserve_min = []
         self.reserve_max = []
+        self.config_file = config_file
         self.checkshipping = checkshipping
         self.button_xpaths = BUTTON_XPATHS
         self.random_delay = random_delay
@@ -186,6 +185,11 @@ class Amazon:
         self.no_screenshots = no_screenshots
         self.start_time = time.time()
         self.start_time_atc = 0
+		
+        AUTOBUY_CONFIG_PATH = "config/"+config_file
+        CREDENTIAL_FILE = "config/amazon_credentials_"+config_file
+		
+        print("path is and credential file are", AUTOBUY_CONFIG_PATH, CREDENTIAL_FILE)
 
         if not self.no_screenshots:
             if not os.path.exists("screenshots"):
@@ -242,7 +246,7 @@ class Amazon:
         # # keep profile bloat in check
         # if os.path.isdir(profile_amz):
         #     os.remove(profile_amz)
-        options.add_argument(f"user-data-dir=.profile-amz")
+        options.add_argument(f"user-data-dir=.profile-amz-"+config_file)
 
         try:
             self.driver = webdriver.Chrome(executable_path=binary_path, options=options)

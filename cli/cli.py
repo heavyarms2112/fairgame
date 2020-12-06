@@ -78,6 +78,7 @@ def main():
 @click.option(
     "--delay", type=float, default=3.0, help="Time to wait between checks for item[s]"
 )
+@click.option("--config_file", help="custom config file name located in config directory")
 @click.option(
     "--checkshipping",
     is_flag=True,
@@ -106,6 +107,7 @@ def amazon(
     headless,
     test,
     delay,
+	config_file,
     checkshipping,
     detailed,
     used,
@@ -121,6 +123,7 @@ def amazon(
     amzn_obj = Amazon(
         headless=headless,
         notification_handler=notification_handler,
+		config_file=config_file,
         checkshipping=checkshipping,
         random_delay=random_delay,
         detailed=detailed,

@@ -1,10 +1,11 @@
 import coloredlogs
 import logging
 import os
+from datetime import datetime
 
 from logging import handlers
 
-LOG_FILENAME = "fairgame.log"
+LOG_FILENAME = filename=datetime.now().strftime('mylogfile_%H_%M_%S_%d_%m_%Y.log')
 
 # This check *must* be executed before logging.basicConfig because, at least on Windows,
 # basicConfig creates a lock on the log file that prevents renaming.  Possibly a workaround
