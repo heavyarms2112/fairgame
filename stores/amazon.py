@@ -185,11 +185,9 @@ class Amazon:
         self.no_screenshots = no_screenshots
         self.start_time = time.time()
         self.start_time_atc = 0
-		
+
         AUTOBUY_CONFIG_PATH = "config/"+config_file
         CREDENTIAL_FILE = "config/amazon_credentials_"+config_file
-		
-        print("path is and credential file are", AUTOBUY_CONFIG_PATH, CREDENTIAL_FILE)
 
         if not self.no_screenshots:
             if not os.path.exists("screenshots"):
